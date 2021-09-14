@@ -11,12 +11,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: |
+      - name: Install Dependencies
+        run: |
           npm install
       - name: Unit Tests
         env:
           UUID: {{secrets.FEISHU_ROBOT_UUID}}
-          UUID_WITH_SECRET: {{secrets.FEISHU_ROBOT_UUID_WITH_SECRET}}
+          UUID2: {{secrets.FEISHU_ROBOT_UUID_WITH_SECRET}}
           SECRET: {{secrets.FEISHU_ROBOT_SECRET}}
         run: |
           npm run all

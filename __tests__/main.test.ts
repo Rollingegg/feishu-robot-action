@@ -4,7 +4,7 @@ import * as cp from 'child_process'
 import * as path from 'path'
 import { expect, test } from '@jest/globals'
 const uuidMock = process.env.UUID
-const uuidMockWithSecret = process.env.UUID_WITH_SECRET
+const uuidMockWithSecret = process.env.UUID2
 const secret = process.env.SECRET
 
 test('throws invalid version', () => {
