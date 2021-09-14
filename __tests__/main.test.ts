@@ -4,9 +4,9 @@ import * as cp from 'child_process'
 import * as path from 'path'
 import { expect, test } from '@jest/globals'
 console.log(process.env)
-const uuidMock = process.env.UUID
-const uuidMockWithSecret = process.env.UUID_WITH_SECRET
-const secret = process.env.SECRET
+const uuidMock = process.env.UUID as string
+const uuidMockWithSecret = process.env.UUID_WITH_SECRET as string
+const secret = process.env.SECRET as string
 
 test('throws invalid version', () => {
   expect(() => new FRobot(uuidMock, '3')).toThrow(
