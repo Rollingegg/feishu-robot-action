@@ -16,9 +16,9 @@ jobs:
           npm install
       - name: Unit Tests
         env:
-          UUID: {{secrets.FEISHU_ROBOT_UUID}}
-          UUID2: {{secrets.FEISHU_ROBOT_UUID_WITH_SECRET}}
-          SECRET: {{secrets.FEISHU_ROBOT_SECRET}}
+          UUID: ${{secrets.FEISHU_ROBOT_UUID}}
+          UUID_WITH_SECRET: ${{secrets.FEISHU_ROBOT_UUID_WITH_SECRET}}
+          SECRET: ${{secrets.FEISHU_ROBOT_SECRET}}
         run: |
           npm run all
 
@@ -28,7 +28,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: ./
         with:
-          uuid: {{secrets.FEISHU_ROBOT_UUID}}
+          uuid: ${{secrets.FEISHU_ROBOT_UUID}}
           text: |
             from github action test
             repository: ${{ github.repository }}
@@ -43,7 +43,8 @@ jobs:
       - uses: actions/checkout@v2
       - uses: ./
         with:
-          uuid: {{secrets.FEISHU_ROBOT_UUID}}
+          uuid: ${{secrets.FEISHU_ROBOT_UUID_WITH_SECRET}}
+          secret: ${{secrets.FEISHU_ROBOT_SECRET}}
           json: |
             {
               "msg_type": "post",
