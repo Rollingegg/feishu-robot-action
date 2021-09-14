@@ -2,13 +2,11 @@ name: 'feishu robot action'
 description: 'Sending a Feishu message'
 author: 'Rollingegg'
 inputs:
-  uuid: # change this
+  uuid:
     required: true
     description: 'uuid in webhook_url of your feishu robot'
   version:
     description: 'version of webhook api，1 or 2'
-    required: true
-    default: '2'
   secret:
     description: 'signature secret for authentication'
   text:
