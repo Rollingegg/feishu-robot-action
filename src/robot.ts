@@ -15,7 +15,7 @@ export class FRobot {
   private webhookUrl: string
   private secret?: string
   constructor(uuid: string, versionStr?: string, secret?: string) {
-    let version
+    let version: number
     if (!versionStr) {
       version = 2
     } else {

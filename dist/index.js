@@ -65,17 +65,18 @@ function run() {
             const version = core.getInput('version');
             const secret = core.getInput('secret');
             const text = core.getInput('text');
-            const data = core.getInput('data');
+            const json = core.getInput('json');
+            core.debug(json);
             const robot = new robot_1.FRobot(uuid, version, secret);
-            if (!text && !data)
-                throw new Error('invalid data');
+            if (!text && !json)
+                throw new Error('invalid json data');
             if (text) {
                 const res = yield robot.send(robot_1.createTextMessage(text));
                 core.debug(res);
             }
-            else if (data) {
+            else if (json) {
                 try {
-                    const res = yield robot.send(JSON.parse(data));
+                    const res = yield robot.send(JSON.parse(json));
                     core.debug(res);
                 }
                 catch (error) {
@@ -166,13 +167,12 @@ class FRobot {
                 const sign = crypto_1.generateSignature(parseInt(timestamp), secret);
                 message.timestamp = timestamp;
                 message.sign = sign;
-                console.log(message);
             }
             const res = yield got_1.default.post(webhookUrl, {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(message)
+                body: JSON.stringify(webhookUrl.search('/v2/') != -1 ? message : { text: message.content.text })
             });
             core.debug(res.body);
             return res.body;
