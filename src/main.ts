@@ -11,7 +11,7 @@ async function run(): Promise<void> {
     core.info(json)
 
     const robot = new FRobot(uuid, version, secret)
-    if (!text && !json) throw new Error('invalid data')
+    if (!text && !json) throw new Error('invalid json data')
     if (text) {
       const res = await robot.send(createTextMessage(text))
       core.debug(res)
