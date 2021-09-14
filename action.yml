@@ -1,11 +1,24 @@
-name: 'Your name here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: 'feishu robot action'
+description: 'Sending a Feishu message'
+author: 'Rollingegg'
 inputs:
-  milliseconds: # change this
+  uuid: # change this
     required: true
-    description: 'input description here'
-    default: 'default value if applicable'
+    description: 'uuid in webhook_url of your feishu robot'
+  version:
+    description: 'version of webhook api，1 or 2'
+    required: true
+    default: '2'
+  secret:
+    description: 'signature secret for authentication'
+  text:
+    description: 'send text quickly'
+  json:
+    description: 'send json for using complex meesage type such as image'
 runs:
   using: 'node12'
   main: 'dist/index.js'
+
+branding:
+  color: 'blue'
+  icon: 'send'

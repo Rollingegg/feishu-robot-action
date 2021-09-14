@@ -7,18 +7,61 @@ on: # rebuild any PRs and main branch changes
       - 'releases/*'
 
 jobs:
-  build: # make sure build/ci work properly
+  build-and-test: # make sure build/ci work properly
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - run: |
           npm install
-      - run: |
+      - name: Unit Tests
+        run: |
           npm run all
-  test: # make sure the action works on a clean machine without building
+        env:
+          UUID: {{secrets.FEISHU_ROBOT_UUID}}
+          UUID_WITH_SECRET: {{secrets.FEISHU_ROBOT_UUID_WITH_SECRET}}
+          SECRET: {{secrets.FEISHU_ROBOT_SECRET}}
+  test-action-simple: # make sure the action works on a clean machine without building
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: ./
         with:
-          milliseconds: 1000
+          uuid: {{secrets.FEISHU_ROBOT_UUID}}
+          text: |
+            from github action test
+            repository: ${{ github.repository }}
+            committer: ${{ github.actor }}
+            compare: ${{ github.event.compare }}
+            job status: ${{ job.status }}
+  # test with link
+  test-with-link:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ./
+        with:
+          uuid: {{secrets.FEISHU_ROBOT_UUID}}
+          json: |
+            {
+              "msg_type": "post",
+              "content": {
+                  "post": {
+                      "zh_cn": {
+                          "title": "飞书机器人",
+                          "content": [
+                              [
+                                  {
+                                      "tag": "text",
+                                      "text": "使用文档: "
+                                  },
+                                  {
+                                      "tag": "a",
+                                      "text": "请查看",
+                                      "href": "https://www.feishu.cn/hc/zh-CN/articles/360024984973"
+                                  }
+                              ]
+                          ]
+                      }
+                  }
+              }
+            }

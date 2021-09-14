@@ -1,18 +1,29 @@
 import * as core from '@actions/core'
-import {wait} from './wait'
+import { createTextMessage, FRobot } from './robot'
 
 async function run(): Promise<void> {
   try {
-    const ms: string = core.getInput('milliseconds')
-    core.debug(`Waiting ${ms} milliseconds ...`) // debug is only output if you set the secret `ACTIONS_RUNNER_DEBUG` to true
+    const uuid: string = core.getInput('uuid')
+    const version = core.getInput('version')
+    const secret = core.getInput('secret')
+    const text = core.getInput('text')
+    const json = core.getInput('json')
 
-    core.debug(new Date().toTimeString())
-    await wait(parseInt(ms, 10))
-    core.debug(new Date().toTimeString())
-
-    core.setOutput('time', new Date().toTimeString())
+    const robot = new FRobot(uuid, version, secret)
+    if (!text && !json) throw new Error('invalid data')
+    if (text) {
+      const res = await robot.send(createTextMessage(text))
+      core.debug(res)
+    } else if (json) {
+      try {
+        const res = await robot.send(JSON.parse(json))
+        core.debug(res)
+      } catch (error) {
+        core.setFailed(String(error))
+      }
+    }
   } catch (error) {
-    core.setFailed(error.message)
+    core.setFailed(String(error))
   }
 }
 
