@@ -8,7 +8,7 @@ async function run(): Promise<void> {
     const secret = core.getInput('secret')
     const text = core.getInput('text')
     const json = core.getInput('json')
-    core.info(json)
+    core.debug(json)
 
     const robot = new FRobot(uuid, version, secret)
     // if (!text && !json) throw new Error('invalid data')
