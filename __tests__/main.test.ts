@@ -3,6 +3,7 @@ import * as process from 'process'
 import * as cp from 'child_process'
 import * as path from 'path'
 import { expect, test } from '@jest/globals'
+console.log(process.env)
 const uuidMock = process.env.UUID
 const uuidMockWithSecret = process.env.UUID_WITH_SECRET
 const secret = process.env.SECRET
