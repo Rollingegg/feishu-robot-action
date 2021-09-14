@@ -20,6 +20,7 @@ jobs:
           UUID: {{secrets.FEISHU_ROBOT_UUID}}
           UUID_WITH_SECRET: {{secrets.FEISHU_ROBOT_UUID_WITH_SECRET}}
           SECRET: {{secrets.FEISHU_ROBOT_SECRET}}
+
   test-action-simple: # make sure the action works on a clean machine without building
     runs-on: ubuntu-latest
     steps:
@@ -33,6 +34,7 @@ jobs:
             committer: ${{ github.actor }}
             compare: ${{ github.event.compare }}
             job status: ${{ job.status }}
+
   # test with link
   test-with-link:
     runs-on: ubuntu-latest
