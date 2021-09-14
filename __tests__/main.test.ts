@@ -3,7 +3,7 @@ import * as process from 'process'
 import * as cp from 'child_process'
 import * as path from 'path'
 import { expect, test } from '@jest/globals'
-console.log(process.env)
+
 const uuidMock = process.env.UUID as string
 const uuidMockWithSecret = process.env.UUID_WITH_SECRET as string
 const secret = process.env.SECRET as string
@@ -59,7 +59,7 @@ test('send data with secret', async () => {
 test('test runs', () => {
   process.env['INPUT_VERSION'] = '2'
   process.env['INPUT_UUID'] = uuidMock
-  process.env['INPUT_DATA'] =
+  process.env['INPUT_JSON'] =
     '{"msg_type":"post","content":{"post":{"zh_cn":{"title":"飞书机器人","content":[[{"tag":"text","text":"使用文档: "},{"tag":"a","text":"请查看","href":"https://www.feishu.cn/hc/zh-CN/articles/360024984973"}]]}}}}'
   const np = process.execPath
   const ip = path.join(__dirname, '..', 'lib', 'main.js')
