@@ -14,12 +14,12 @@ jobs:
       - run: |
           npm install
       - name: Unit Tests
+        env:
+          UUID: {{secrets.FEISHU_ROBOT_UUID}}
+          UUID_WITH_SECRET: {{secrets.FEISHU_ROBOT_UUID_WITH_SECRET}}
+          SECRET: {{secrets.FEISHU_ROBOT_SECRET}}
         run: |
           npm run all
-        env:
-          UUID_WITH_SECRET: {{secrets.FEISHU_ROBOT_UUID_WITH_SECRET}}
-          UUID: {{secrets.FEISHU_ROBOT_UUID}}
-          SECRET: {{secrets.FEISHU_ROBOT_SECRET}}
 
   test-action-simple: # make sure the action works on a clean machine without building
     runs-on: ubuntu-latest
